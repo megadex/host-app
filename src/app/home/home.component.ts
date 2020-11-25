@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   
   title = "Host";
   modalTitle = "Hello World";
-  iFrameUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://photo-plus.atwebpages.com/chat/");
+  iFrameUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://photo-plus.atwebpages.com");
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -36,11 +36,9 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterOpened().subscribe(result => {
-      let win = document.querySelector('iframe').contentWindow;
-
-      // https://stackoverflow.com/questions/27827427/set-value-of-input-field-inside-an-external-iframe/43632728
-      // https://developer.mozilla.org/ru/docs/Web/API/Window/postMessage
-      win.postMessage("Hello World", "http://photo-plus.atwebpages.com/chat/");
+      let win = document.querySelector('iframe');
+      
+      win.contentWindow.postMessage("Hello World", "http://photo-plus.atwebpages.com");
     });
   }
 
